@@ -3,427 +3,495 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DealzBoss – Real Cash. Real Fast.</title>
+  <title>DealzBoss – Stop Waiting. Start Earning Today.</title>
   <script type="text/javascript" src="https://trk.dealzboss.com/track.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --green: #00C853;
+      --green-light: #69F0AE;
+      --green-dim: #00C85322;
+      --dark: #0A0F0D;
+      --dark-2: #111814;
+      --dark-3: #182019;
+      --card: #141c15;
+      --card-border: #1f2e21;
+      --text: #E8F0EA;
+      --text-muted: #7a9b7d;
+      --text-dim: #4a6b4d;
+      --white: #ffffff;
+    }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f5f6fa;
-      color: #1a1a2e;
+      font-family: 'DM Sans', sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
     }
 
     a { text-decoration: none; color: inherit; }
 
-    /* ── CTA BUTTON ── */
-    .btn {
-      display: inline-block;
-      background: #2563eb;
-      color: #fff;
-      font-size: 1.15rem;
-      font-weight: 700;
-      padding: 16px 40px;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s;
-      border: none;
-      letter-spacing: 0.02em;
+    /* GLOW TOP */
+    .glow-top {
+      position: fixed; top: 0; left: 50%; transform: translateX(-50%);
+      width: 600px; height: 300px; pointer-events: none; z-index: 0;
+      background: radial-gradient(ellipse, #00C85318 0%, transparent 70%);
     }
-    .btn:hover { background: #1d4ed8; transform: translateY(-2px); }
-    .btn:active { transform: translateY(0); }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-      padding: 0 5%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,15,13,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 64px;
     }
     .logo {
-      font-size: 1.6rem;
-      font-weight: 900;
-      color: #2563eb;
-      letter-spacing: -0.5px;
+      font-family: 'Sora', sans-serif;
+      font-size: 1.4rem; font-weight: 800;
+      color: var(--green); letter-spacing: -0.5px;
     }
-    .logo span { color: #f59e0b; }
-    nav .nav-cta { font-size: 0.95rem; padding: 10px 26px; }
+    .logo span { color: var(--text); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .trust-badge {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+    .trust-badge .stars { color: #FFD700; letter-spacing: -1px; font-size: 0.75rem; }
+    .nav-cta {
+      background: var(--green); color: #050e06;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 0.88rem;
+      padding: 9px 20px; border-radius: 8px;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: #00e060; transform: translateY(-1px); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%);
-      color: #fff;
-      text-align: center;
-      padding: 80px 5% 90px;
+      position: relative; z-index: 1;
+      text-align: center; padding: 90px 5% 80px;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--green-dim); border: 1px solid #00C85340;
+      color: var(--green-light); font-size: 0.78rem; font-weight: 600;
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 28px;
+    }
+    .eyebrow-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--green); box-shadow: 0 0 6px var(--green);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
     }
     .hero h1 {
-      font-size: clamp(2rem, 5vw, 3.4rem);
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 18px;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: #fde68a;
-    }
-    .hero p {
-      font-size: clamp(1rem, 2.5vw, 1.25rem);
-      opacity: 0.92;
-      margin-bottom: 36px;
-      max-width: 560px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    .hero .btn { font-size: 1.25rem; padding: 18px 52px; background: #f59e0b; color: #1a1a2e; }
-    .hero .btn:hover { background: #d97706; }
-    .trust-badges {
-      margin-top: 22px;
-      font-size: 0.95rem;
-      opacity: 0.88;
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-    }
-    .trust-badges span::before { content: '✓ '; color: #86efac; }
-    .stars {
-      margin-top: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      font-size: 0.98rem;
-      opacity: 0.9;
-    }
-    .stars .star-icons { color: #fde68a; font-size: 1.1rem; letter-spacing: 2px; }
-
-    /* ── STATS BAR ── */
-    .stats-bar {
-      background: #1e3a8a;
-      color: #fff;
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      padding: 30px 5%;
-      gap: 20px;
-    }
-    .stat {
-      text-align: center;
-      min-width: 140px;
-    }
-    .stat .num {
-      font-size: 1.9rem;
-      font-weight: 900;
-      color: #fde68a;
-    }
-    .stat .label {
-      font-size: 0.88rem;
-      opacity: 0.85;
-      margin-top: 4px;
-    }
-
-    /* ── SECTION WRAPPER ── */
-    section { padding: 70px 5%; }
-    .section-title {
-      text-align: center;
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-      font-weight: 800;
-      margin-bottom: 10px;
-    }
-    .section-sub {
-      text-align: center;
-      color: #64748b;
-      margin-bottom: 48px;
-      font-size: 1.05rem;
-    }
-
-    /* ── HOW IT WORKS ── */
-    .how { background: #fff; }
-    .steps {
-      display: flex;
-      justify-content: center;
-      gap: 32px;
-      flex-wrap: wrap;
-    }
-    .step {
-      flex: 1;
-      min-width: 200px;
-      max-width: 280px;
-      text-align: center;
-      padding: 32px 20px;
-      background: #f0f4ff;
-      border-radius: 20px;
-    }
-    .step .icon { font-size: 2.8rem; margin-bottom: 16px; }
-    .step h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; }
-    .step p { font-size: 0.93rem; color: #64748b; line-height: 1.5; }
-
-    /* ── WAYS TO EARN ── */
-    .earn { background: #f5f6fa; }
-    .earn-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin-bottom: 48px;
-    }
-    .earn-card {
-      background: #fff;
-      border-radius: 16px;
-      padding: 28px 24px;
-      text-align: center;
-      flex: 1;
-      min-width: 150px;
-      max-width: 180px;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      transition: transform 0.2s;
-    }
-    .earn-card:hover { transform: translateY(-4px); }
-    .earn-card .icon { font-size: 2.4rem; margin-bottom: 12px; }
-    .earn-card h4 { font-size: 1rem; font-weight: 700; }
-    .payout-label {
-      text-align: center;
-      font-weight: 700;
-      font-size: 1.05rem;
-      margin-bottom: 16px;
-      color: #1e3a8a;
-    }
-    .payout-icons {
-      display: flex;
-      justify-content: center;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-    .payout-pill {
-      background: #e0e7ff;
-      color: #1e3a8a;
-      padding: 7px 18px;
-      border-radius: 50px;
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
-
-    /* ── TESTIMONIALS ── */
-    .testimonials { background: #fff; }
-    .reviews {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .review-card {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 28px 24px;
-      flex: 1;
-      min-width: 220px;
-      max-width: 280px;
-    }
-    .review-stars { color: #f59e0b; font-size: 1rem; margin-bottom: 10px; }
-    .review-text { font-size: 0.95rem; line-height: 1.55; color: #374151; margin-bottom: 14px; }
-    .reviewer { font-size: 0.88rem; font-weight: 700; color: #64748b; }
-    .verified { color: #22c55e; font-size: 0.78rem; margin-left: 6px; }
-
-    /* ── FOOTER CTA ── */
-    .footer-cta {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
-      color: #fff;
-      text-align: center;
-      padding: 70px 5%;
-    }
-    .footer-cta h2 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 900;
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800; color: var(--white); line-height: 1.15;
       margin-bottom: 20px;
     }
+    .hero h1 em { font-style: normal; color: var(--green); }
+    .hero-sub {
+      font-size: clamp(1rem, 2.5vw, 1.15rem);
+      color: var(--text-muted); font-weight: 400;
+      max-width: 520px; margin: 0 auto 40px; line-height: 1.6;
+    }
+    .cta-group { margin-bottom: 20px; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--green); color: #050e06;
+      font-family: 'Sora', sans-serif; font-weight: 700; font-size: 1.05rem;
+      padding: 16px 44px; border-radius: 12px;
+      box-shadow: 0 0 40px #00C85340, 0 4px 20px #00000060;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .btn-primary:hover {
+      background: #00e060;
+      box-shadow: 0 0 60px #00C85360, 0 8px 30px #00000070;
+      transform: translateY(-2px);
+    }
+    .cta-note {
+      font-size: 0.82rem; color: var(--text-dim); margin-top: 14px;
+    }
+    .cta-note span { color: var(--text-muted); }
+
+    /* STATS */
+    .stats {
+      background: var(--dark-2);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      display: flex; flex-wrap: wrap;
+      justify-content: space-around; padding: 32px 5%; gap: 24px;
+      position: relative; z-index: 1;
+    }
+    .stat { text-align: center; min-width: 130px; }
+    .stat-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.9rem; font-weight: 800; color: var(--green);
+    }
+    .stat-label {
+      font-size: 0.78rem; color: var(--text-muted);
+      font-weight: 400; margin-top: 4px;
+    }
+
+    /* SECTIONS */
+    .section { padding: 80px 5%; position: relative; z-index: 1; }
+    .section-label {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--green); text-transform: uppercase;
+      letter-spacing: 1.5px; margin-bottom: 12px; text-align: center;
+    }
+    .section-title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
+      font-weight: 700; color: var(--white);
+      text-align: center; margin-bottom: 52px; line-height: 1.2;
+    }
+    .section-title em { font-style: normal; color: var(--green); }
+
+    /* STEPS */
+    .steps {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 24px;
+    }
+    .step {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px; padding: 36px 28px;
+      flex: 1 1 220px; max-width: 280px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .step::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--green), transparent);
+      opacity: 0; transition: opacity 0.25s;
+    }
+    .step:hover { border-color: #2e4a30; transform: translateY(-4px); }
+    .step:hover::after { opacity: 1; }
+    .step-num {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--green); background: var(--green-dim);
+      border: 1px solid #00C85330;
+      display: inline-block; padding: 3px 9px; border-radius: 6px;
+      margin-bottom: 16px;
+    }
+    .step-icon { font-size: 2rem; display: block; margin-bottom: 12px; }
+    .step-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 1.05rem; font-weight: 700;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .step-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* EARN GRID */
+    .earn-grid {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 20px; margin-bottom: 40px;
+    }
+    .earn-card {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 28px 22px; text-align: center;
+      flex: 1 1 180px; max-width: 210px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .earn-card:hover { border-color: #2e4a30; transform: translateY(-3px); }
+    .earn-icon { font-size: 2.2rem; display: block; margin-bottom: 12px; }
+    .earn-title {
+      font-family: 'Sora', sans-serif;
+      font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 8px;
+    }
+    .earn-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* PAYOUT STRIP */
+    .payout-strip {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 14px; padding: 20px 28px;
+      display: flex; flex-wrap: wrap;
+      align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .payout-left { font-size: 0.9rem; color: var(--text-muted); }
+    .payout-methods { display: flex; flex-wrap: wrap; gap: 10px; }
+    .payout-pill {
+      background: var(--dark-3); border: 1px solid var(--card-border);
+      color: var(--text-muted); padding: 7px 16px;
+      border-radius: 999px; font-size: 0.82rem; font-weight: 500;
+    }
+
+    /* REVIEWS */
+    .reviews-scroll {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 20px;
+    }
+    .review-card {
+      background: var(--card); border: 1px solid var(--card-border);
+      border-radius: 16px; padding: 26px 22px;
+      flex: 1 1 220px; max-width: 280px;
+    }
+    .review-stars { color: #FFD700; font-size: 0.85rem; margin-bottom: 12px; letter-spacing: 1px; }
+    .review-text {
+      font-size: 0.92rem; color: var(--text);
+      line-height: 1.6; margin-bottom: 18px;
+    }
+    .reviewer { display: flex; align-items: center; gap: 10px; }
+    .reviewer-avatar {
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--green-dim); border: 1px solid #00C85340;
+      color: var(--green-light); font-family: 'Sora', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .reviewer-name { font-size: 0.88rem; font-weight: 600; color: var(--text); }
+    .reviewer-tag { font-size: 0.75rem; color: var(--text-dim); margin-top: 2px; }
+
+    /* FOOTER CTA */
+    .footer-cta {
+      background: var(--dark-2);
+      border-top: 1px solid var(--card-border);
+      text-align: center; padding: 80px 5%;
+      position: relative; z-index: 1;
+    }
+    .footer-cta h2 {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 800; color: var(--white); margin-bottom: 14px;
+    }
+    .footer-cta h2 em { font-style: normal; color: var(--green); }
+    .footer-cta p { font-size: 1rem; color: var(--text-muted); margin-bottom: 36px; }
     .footer-cta ul {
-      list-style: none;
-      margin-bottom: 36px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+      list-style: none; margin-bottom: 36px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
     }
-    .footer-cta ul li::before { content: '✓ '; color: #86efac; font-weight: 700; }
-    .footer-cta ul li { font-size: 1.05rem; opacity: 0.92; }
-    .footer-cta .btn { font-size: 1.2rem; padding: 18px 52px; background: #f59e0b; color: #1a1a2e; }
-    .footer-cta .btn:hover { background: #d97706; }
+    .footer-cta ul li {
+      font-size: 0.95rem; color: var(--text-muted);
+    }
+    .footer-cta ul li::before { content: '✓ '; color: var(--green); font-weight: 700; }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
-      background: #0f172a;
-      color: #94a3b8;
-      text-align: center;
-      padding: 28px 5%;
-      font-size: 0.82rem;
-      line-height: 1.6;
+      background: var(--dark);
+      border-top: 1px solid var(--card-border);
+      text-align: center; padding: 28px 5%;
+      font-size: 0.78rem; color: var(--text-dim); line-height: 1.7;
+      position: relative; z-index: 1;
     }
-    footer strong { color: #cbd5e1; }
+    footer strong { color: var(--text-muted); }
 
-    @media (max-width: 600px) {
-      .steps, .earn-grid, .reviews { flex-direction: column; align-items: center; }
+    /* REVEAL ANIMATION */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s, transform 0.6s; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 640px) {
+      .steps, .earn-grid, .reviews-scroll { flex-direction: column; align-items: center; }
       .step, .earn-card, .review-card { max-width: 100%; }
+      .payout-strip { flex-direction: column; }
+      .nav-right .trust-badge { display: none; }
     }
   </style>
 </head>
 <body>
 
+<div class="glow-top"></div>
+
 <!-- NAV -->
 <nav>
   <div class="logo">Dealz<span>Boss</span></div>
-  <a href="https://trk.dealzboss.com/click" class="btn nav-cta">Get Started Free</a>
+  <div class="nav-right">
+    <div class="trust-badge">
+      <span class="stars">★★★★★</span>
+      <span>4.5/5 · 2M+ earners</span>
+    </div>
+    <a href="https://trk.dealzboss.com/click" class="nav-cta">Sign Up Free</a>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <h1>Real Cash. <em>Real Fast.</em></h1>
-  <p>Stop Waiting. Start Earning Today — Join Thousands Already Cashing Out.</p>
-  <a href="https://trk.dealzboss.com/click" class="btn">Claim Your Free Account</a>
-  <div class="trust-badges">
-    <span>Free to join</span>
-    <span>No credit card needed</span>
+  <div class="eyebrow">
+    <div class="eyebrow-dot"></div>
+    9,000+ live offers today
+  </div>
+  <h1>Stop Waiting.<br /><em>Start Earning Today.</em></h1>
+  <p class="hero-sub">Join over 2 million people earning real cash from their phone. Complete offers, play games, take surveys — and get paid fast.</p>
+  <div class="cta-group">
+    <a href="https://trk.dealzboss.com/click" class="btn-primary" id="main-cta">Claim Your Free Account</a>
+  </div>
+  <p class="cta-note">
+    <span>✓ Free to join</span> &nbsp;·&nbsp;
+    <span>No credit card needed</span> &nbsp;·&nbsp;
     <span>Instant signup</span>
-  </div>
-  <div class="stars">
-    <span class="star-icons">★★★★★</span>
-    <span>Rated 4.5/5 &nbsp;·&nbsp; 2M+ Earners</span>
-  </div>
+  </p>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
+<!-- STATS -->
+<div class="stats reveal">
   <div class="stat">
-    <div class="num">$50M+</div>
-    <div class="label">Paid Out to Users</div>
+    <div class="stat-num">$50M+</div>
+    <div class="stat-label">Paid out to users</div>
   </div>
   <div class="stat">
-    <div class="num">2M+</div>
-    <div class="label">Active Members</div>
+    <div class="stat-num">2M+</div>
+    <div class="stat-label">Active members</div>
   </div>
   <div class="stat">
-    <div class="num">9,000+</div>
-    <div class="label">Live Offers Today</div>
+    <div class="stat-num">9,000+</div>
+    <div class="stat-label">Live offers today</div>
   </div>
   <div class="stat">
-    <div class="num">4.5★</div>
-    <div class="label">Trustpilot Rating</div>
+    <div class="stat-num">4.5★</div>
+    <div class="stat-label">Trustpilot rating</div>
   </div>
 </div>
 
 <!-- HOW IT WORKS -->
-<section class="how">
-  <h2 class="section-title">How It Works</h2>
-  <p class="section-sub">Three simple steps to your first payout</p>
+<section class="section reveal">
+  <div class="section-label">How it works</div>
+  <div class="section-title">Three steps to <em>your first payout</em></div>
   <div class="steps">
     <div class="step">
-      <div class="icon">🎯</div>
-      <h3>Pick an Offer</h3>
-      <p>Browse thousands of available deals, games, surveys, and more — all free.</p>
+      <div class="step-num">01</div>
+      <span class="step-icon">🎯</span>
+      <div class="step-title">Pick an offer</div>
+      <p class="step-desc">Browse thousands of tasks — games, surveys, free trials, app tests. Something for everyone.</p>
     </div>
     <div class="step">
-      <div class="icon">⚡</div>
-      <h3>Complete It</h3>
-      <p>Follow the simple steps. Most offers take just minutes to finish.</p>
+      <div class="step-num">02</div>
+      <span class="step-icon">⚡</span>
+      <div class="step-title">Complete it</div>
+      <p class="step-desc">Most offers take just a few minutes. Follow the steps and watch your balance grow.</p>
     </div>
     <div class="step">
-      <div class="icon">💸</div>
-      <h3>Cash Out</h3>
-      <p>Withdraw to PayPal, crypto, gift cards, or your bank — your choice.</p>
+      <div class="step-num">03</div>
+      <span class="step-icon">💸</span>
+      <div class="step-title">Cash out</div>
+      <p class="step-desc">Withdraw to PayPal, crypto, gift cards, or bank transfer. Most payouts hit instantly.</p>
     </div>
   </div>
 </section>
 
 <!-- WAYS TO EARN -->
-<section class="earn">
-  <h2 class="section-title">Ways to Earn</h2>
-  <p class="section-sub">Pick what you enjoy — every action pays</p>
+<section class="section reveal" style="background: var(--dark-2); border-top: 1px solid var(--card-border); border-bottom: 1px solid var(--card-border);">
+  <div class="section-label">Ways to earn</div>
+  <div class="section-title">Pick what <em>works for you</em></div>
   <div class="earn-grid">
     <div class="earn-card">
-      <div class="icon">🎮</div>
-      <h4>Play Games</h4>
+      <span class="earn-icon">🎮</span>
+      <div class="earn-title">Play Games</div>
+      <p class="earn-desc">Gaming companies pay real money for you to try their games. Hit milestones, earn coins.</p>
     </div>
     <div class="earn-card">
-      <div class="icon">📱</div>
-      <h4>Test Apps</h4>
+      <span class="earn-icon">📱</span>
+      <div class="earn-title">Test Apps</div>
+      <p class="earn-desc">Download and try new apps. Developers pay for feedback and new users.</p>
     </div>
     <div class="earn-card">
-      <div class="icon">📋</div>
-      <h4>Take Surveys</h4>
-    </div>
-    <div class="earn-card">
-      <div class="icon">🛒</div>
-      <h4>Shop & Save</h4>
-    </div>
-    <div class="earn-card">
-      <div class="icon">👥</div>
-      <h4>Refer Friends</h4>
+      <span class="earn-icon">📋</span>
+      <div class="earn-title">Take Surveys</div>
+      <p class="earn-desc">Share your opinions. Brands pay well to hear from real people like you.</p>
     </div>
   </div>
-  <div class="payout-label">Withdraw via:</div>
-  <div class="payout-icons">
-    <div class="payout-pill">💳 PayPal</div>
-    <div class="payout-pill">₿ Bitcoin</div>
-    <div class="payout-pill">⟠ Ethereum</div>
-    <div class="payout-pill">🎁 Gift Cards</div>
-    <div class="payout-pill">🏦 Bank Transfer</div>
+  <div class="payout-strip">
+    <div class="payout-left">
+      <span>Instant or same-day payouts available</span>
+    </div>
+    <div class="payout-methods">
+      <div class="payout-pill">💳 PayPal</div>
+      <div class="payout-pill">₿ Bitcoin</div>
+      <div class="payout-pill">Ξ Ethereum</div>
+      <div class="payout-pill">🎁 Gift Cards</div>
+      <div class="payout-pill">🏦 Bank Transfer</div>
+    </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section class="testimonials">
-  <h2 class="section-title">Real Reviews</h2>
-  <p class="section-sub">Thousands of members are already earning — here's what they say</p>
-  <div class="reviews">
+<!-- REVIEWS -->
+<section class="section reveal">
+  <div class="section-label">Real reviews</div>
+  <div class="section-title">274,000+ people <em>can't be wrong</em></div>
+  <div class="reviews-scroll">
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p class="review-text">"I've cashed out over $300 in the last two months just doing surveys during my lunch break. Totally legit!"</p>
-      <div class="reviewer">Sarah M. <span class="verified">✓ Verified</span></div>
+      <p class="review-text">"One of the most reliable and rewarding platforms I've used. Wide range of tasks and payments are superfast."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">R</div>
+        <div>
+          <div class="reviewer-name">Ruslan</div>
+          <div class="reviewer-tag">Verified Trustpilot review</div>
+        </div>
+      </div>
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p class="review-text">"The game offers are actually fun and the payouts hit PayPal the same day. Can't ask for more."</p>
-      <div class="reviewer">James K. <span class="verified">✓ Verified</span></div>
+      <p class="review-text">"The app is legit. You can cash out daily, multiple times a day. I was skeptical at first — I was wrong."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">D</div>
+        <div>
+          <div class="reviewer-name">Diamond Extracts</div>
+          <div class="reviewer-tag">Verified Trustpilot review</div>
+        </div>
+      </div>
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Been using it for 3 months. Already got two gift cards. Zero issues, super easy sign up."</p>
-      <div class="reviewer">Maria L. <span class="verified">✓ Verified</span></div>
+      <p class="review-text">"Best and most reliable play-to-earn source I have used. Rarely have problems with payouts and support is great."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">K</div>
+        <div>
+          <div class="reviewer-name">KillSwtch</div>
+          <div class="reviewer-tag">Verified Trustpilot review</div>
+        </div>
+      </div>
     </div>
     <div class="review-card">
       <div class="review-stars">★★★★★</div>
-      <p class="review-text">"Skeptical at first but the referral bonus alone covered my first withdrawal. Highly recommend!"</p>
-      <div class="reviewer">DeShawn R. <span class="verified">✓ Verified</span></div>
+      <p class="review-text">"Easy to navigate, wide variety of tasks and surveys, and payouts are super fast. Transparent and legit."</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">S</div>
+        <div>
+          <div class="reviewer-name">Sarah M.</div>
+          <div class="reviewer-tag">Verified Trustpilot review</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- FOOTER CTA -->
-<div class="footer-cta">
-  <h2>Ready to Start Earning?</h2>
+<div class="footer-cta reveal">
+  <h2>Ready to start <em>earning?</em></h2>
+  <p>Join 2 million+ members already cashing out every day.</p>
   <ul>
-    <li>100% Free — no fees, no subscriptions</li>
+    <li>100% free — no fees, no subscriptions</li>
     <li>Instant signup, no credit card required</li>
     <li>Withdraw your way, on your schedule</li>
   </ul>
-  <a href="https://trk.dealzboss.com/click" class="btn">Create Your Free Account Now</a>
+  <a href="https://trk.dealzboss.com/click" class="btn-primary">Create Your Free Account</a>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <p><strong>DealzBoss</strong> &nbsp;|&nbsp; <a href="https://www.dealzboss.com/deal">www.dealzboss.com/deal</a></p>
-  <p style="margin-top:10px;">
-    This site contains affiliate links. We may earn a commission when you sign up or complete offers through our links.
-    Earnings vary by user, offer availability, and effort. This is not a guaranteed income opportunity.
-  </p>
-  <p style="margin-top:8px;">© 2026 DealzBoss. All rights reserved.</p>
+  <p><strong>DealzBoss</strong> &nbsp;|&nbsp; www.dealzboss.com/deal</p>
+  <p style="margin-top: 8px;">This site contains affiliate links. We may earn a commission when you sign up or complete offers through our links. Earnings vary by user, offer availability, and effort. This is not a guaranteed income opportunity.</p>
+  <p style="margin-top: 6px;">© 2026 DealzBoss. All rights reserved.</p>
 </footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
